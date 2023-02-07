@@ -1,5 +1,4 @@
 django
 celery
 redis
-flower
 python-dotenv
