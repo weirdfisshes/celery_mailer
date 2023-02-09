@@ -1,0 +1,18 @@
+services:
+  
+  backend:
+    build: .
+    image: backend
+    restart: always
+    ports:
+      - 8000:8000
+
+  redis:
+    image: redis:6-alpine
+    command: redis-server --port 6380
+    ports:
+      - 6380:6380
+
+  celery-worker:
+    build: .
+    command: celery -A celery_mailer worker

@@ -6,7 +6,7 @@ SECRET_KEY = 'sl49!p!a^=f7=cbs2yvt7t=0$pj%x!_wd+4#cxmmmb@mj$@5l='
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -82,5 +82,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-CELERY_BROKER_URL = "redis://localhost:6380"
-CELERY_RESULT_BACKEND = "redis://localhost:6380"
+CELERY_BROKER_URL = "redis://redis:6380"
+CELERY_RESULT_BACKEND = "redis://redis:6380"

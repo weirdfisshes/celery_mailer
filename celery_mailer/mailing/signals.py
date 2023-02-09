@@ -25,4 +25,4 @@ def create_client_mail(sender, instance, created, **kwargs):
                 client=client.id
             ).first()
 
-            send_message(message)
+            send_message.apply_async((message),)

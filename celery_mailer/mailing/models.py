@@ -148,7 +148,7 @@ class ClientMail(models.Model):
     )
 
     def __str__(self):
-        return self.client
+        return self.client.name
 
     class Meta:
         verbose_name = 'Письмо клиента'
