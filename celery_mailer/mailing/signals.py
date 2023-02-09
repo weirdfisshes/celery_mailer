@@ -3,7 +3,6 @@ from django.dispatch import receiver
 
 from .models import Mailing, Client, ClientMail
 from .tasks import send_message
-from . import logs
 
 
 @receiver(post_save, sender=Mailing, dispatch_uid="create_mailing")
@@ -25,10 +24,11 @@ def create_client_mail(sender, instance, created, **kwargs):
                 mailing = mailing,
                 status = 'not read'
             ).first()
-            data = {
-                'subject': message.mail_template.subject,
-                'body': message.mail_template.body,
-                'mail_from': message.mail_template.mail_from
-            }
+            # data = {
+            #     'subject': message.mail_template.subject,
+            #     'body': message.mail_template.body,
+            #     'mail_from': message.mail_template.mail_from
+            # }
 
-            send_message.apply_async((data,))
+            # send_message.apply_async((data,))
+            send_message.apply_async((client, message))

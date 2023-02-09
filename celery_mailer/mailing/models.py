@@ -66,8 +66,8 @@ class MailTemplate(models.Model):
         'Тема',
         max_length=150
     )
-    body = models.TextField(
-        'Тело письма',
+    html_template = models.TextField(
+        'HTML-шаблон письма',
         max_length=1000
     )
     mail_from = models.EmailField(

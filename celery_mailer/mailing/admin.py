@@ -23,7 +23,7 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(MailTemplate)
 class MailTemplateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'group', 'subject', 'body', 'mail_from')
+    list_display = ('id', 'group', 'subject', 'html_template', 'mail_from')
     empty_value_display = '-empty-'
 
 
