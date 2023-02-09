@@ -18,11 +18,17 @@ def create_client_mail(sender, instance, created, **kwargs):
                 mail_template=mailing.mail_template,
                 mailing = mailing,
                 status = 'not read'
-
             )
             message = ClientMail.objects.filter(
-                id=instance.id,
-                client=client.id
+                client=client,
+                mail_template=mailing.mail_template,
+                mailing = mailing,
+                status = 'not read'
             ).first()
+            data = {
+                'subject': message.mail_template.subject,
+                'body': message.mail_template.body,
+                'mail_from': message.mail_template.mail_from
+            }
 
-            send_message.apply_async((message),)
+            send_message.apply_async((data,))
