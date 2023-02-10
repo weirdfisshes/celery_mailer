@@ -24,11 +24,12 @@ def create_client_mail(sender, instance, created, **kwargs):
                 mailing = mailing,
                 status = 'not read'
             ).first()
-            # data = {
-            #     'subject': message.mail_template.subject,
-            #     'body': message.mail_template.body,
-            #     'mail_from': message.mail_template.mail_from
-            # }
-
-            # send_message.apply_async((data,))
-            send_message.apply_async((client, message))
+            data = {
+                'name': client.name,
+                'surname': client.surname,
+                'date_of_birth': client.date_of_birth,
+                'email': client.email,
+                'group': client.group.name
+            }
+            html_template = message.mail_template.html_template
+            send_message.apply_async((data, html_template))
