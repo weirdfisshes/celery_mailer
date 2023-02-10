@@ -35,5 +35,5 @@ class MailingAdmin(admin.ModelAdmin):
 
 @admin.register(ClientMail)
 class ClientMailAdmin(admin.ModelAdmin):
-    list_display = ('id', 'client', 'mail_template', 'mailing', 'status')
+    list_display = ('id', 'client', 'mail_template', 'mailing')
     empty_value_display = '-empty-'

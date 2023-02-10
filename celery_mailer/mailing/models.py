@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+
 class ClientGroup(models.Model):
     name = models.CharField(
         'Название группы',
@@ -13,12 +14,13 @@ class ClientGroup(models.Model):
         max_length=100,
     )
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     class Meta:
         verbose_name = 'Группа рассылки'
         verbose_name_plural = 'Группы рассылок'
+
 
 class Client(models.Model):
     name = models.CharField(
@@ -46,12 +48,13 @@ class Client(models.Model):
         verbose_name='Группа'
     )
 
-    def __str__(self):
+    def __unicode__(self):
         return self.email
 
     class Meta:
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
+
 
 class MailTemplate(models.Model):
     group = models.ForeignKey(
@@ -74,18 +77,21 @@ class MailTemplate(models.Model):
         'Адрес отправителя',
         unique=True,
         null=True,
-        default='1@ya.ru'
+        default='sender@ya.ru'
     )
 
-    def __str__(self):
+    def __unicode__(self):
         return self.subject
 
     class Meta:
         verbose_name = 'Шаблон письма'
         verbose_name_plural = 'Шаблоны писем'
 
+
 class Mailing(models.Model):
-    start_date = models.DateTimeField(verbose_name='Начало рассылки')
+    start_date = models.DateTimeField(
+        verbose_name='Начало рассылки'
+    )
     mail_template = models.ForeignKey(
         MailTemplate,
         blank=False,
@@ -103,20 +109,15 @@ class Mailing(models.Model):
         verbose_name='Группа'
     )
 
-    def __str__(self):
+    def __unicode__(self):
         return self.group.name
 
     class Meta:
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'
 
+
 class ClientMail(models.Model):
-    READ = 'read'
-    NOT_READ = 'not read'
-    STATUS_CHOICES = [
-        (READ, 'Прочитано'),
-        # (NOT_READ, 'Не прочитано'),
-    ]
     client = models.ForeignKey(
         Client,
         blank=False,
@@ -141,13 +142,8 @@ class ClientMail(models.Model):
         related_name='client_mails',
         verbose_name='Рассылка'
     )
-    status = models.CharField(
-        verbose_name='Статус письма',
-        max_length=20,
-        choices=STATUS_CHOICES
-    )
 
-    def __str__(self):
+    def __unicode__(self):
         return self.client.name
 
     class Meta:

@@ -15,14 +15,12 @@ def create_client_mail(sender, instance, created, **kwargs):
             ClientMail.objects.create(
                 client=client,
                 mail_template=mailing.mail_template,
-                mailing = mailing,
-                status = 'not read'
+                mailing=mailing
             )
             message = ClientMail.objects.filter(
                 client=client,
                 mail_template=mailing.mail_template,
-                mailing = mailing,
-                status = 'not read'
+                mailing=mailing
             ).first()
             data = {
                 'name': client.name,
@@ -31,5 +29,9 @@ def create_client_mail(sender, instance, created, **kwargs):
                 'email': client.email,
                 'group': client.group.name
             }
-            html_template = message.mail_template.html_template
-            send_message.apply_async((data, html_template))
+            mail = {
+                'template': message.mail_template.html_template,
+                'mail_from': mailing.mail_template.mail_from,
+                'subject': mailing.mail_template.subject
+            }
+            send_message.apply_async((data, mail), eta=mailing.start_date)

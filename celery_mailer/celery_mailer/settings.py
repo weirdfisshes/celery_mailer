@@ -84,3 +84,4 @@ STATIC_URL = '/static/'
 
 CELERY_BROKER_URL = "redis://redis:6380"
 CELERY_RESULT_BACKEND = "redis://redis:6380"
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
